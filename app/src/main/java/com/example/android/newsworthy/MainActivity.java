@@ -38,11 +38,18 @@ public class MainActivity extends AppCompatActivity {
             case (R.id.action_search):
                 //TODO Add proper logic for buttons
 
-                //Toast Click Test
                 if (mTestToast != null) {
                     mTestToast.cancel();
                 }
                 mTestToast = Toast.makeText(this, "Search", Toast.LENGTH_SHORT);
+                mTestToast.show();
+                return true;
+            case (R.id.action_preferences):
+
+                if (mTestToast != null) {
+                    mTestToast.cancel();
+                }
+                mTestToast = Toast.makeText(this, "Preferences", Toast.LENGTH_SHORT);
                 mTestToast.show();
                 return true;
 

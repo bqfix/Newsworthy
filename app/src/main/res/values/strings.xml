@@ -5,4 +5,5 @@
     <!-- Main Activity Strings -->
     <string name="edit_text_hint">Search terms</string>
     <string name="search">Search</string>
+    <string name="preferences">Preferences</string>
 </resources>
