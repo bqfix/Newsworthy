@@ -7,13 +7,15 @@
     tools:context=".MainActivity"
     android:orientation="vertical">
 
+    <!-- TODO Replace EditText with popup fragment -->
     <EditText
         android:id="@+id/search_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/edit_text_hint"
         android:padding="16dp"
-        android:maxLines="1"/>
+        android:maxLines="1"
+        android:inputType="text" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/main_recycler_view"
