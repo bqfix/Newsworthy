@@ -1,5 +1,6 @@
 package com.example.android.newsworthy;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -45,12 +46,8 @@ public class MainActivity extends AppCompatActivity {
                 mTestToast.show();
                 return true;
             case (R.id.action_preferences):
-
-                if (mTestToast != null) {
-                    mTestToast.cancel();
-                }
-                mTestToast = Toast.makeText(this, "Preferences", Toast.LENGTH_SHORT);
-                mTestToast.show();
+                Intent prefIntent = new Intent(MainActivity.this, PreferencesActivity.class);
+                startActivity(prefIntent);
                 return true;
 
         }
