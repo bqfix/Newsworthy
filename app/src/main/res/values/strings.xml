@@ -1,3 +1,8 @@
 <resources>
+    <!-- App Titles -->
     <string name="app_name">Newsworthy</string>
+
+    <!-- Main Activity Strings -->
+    <string name="edit_text_hint">Search terms</string>
+    <string name="search">Search</string>
 </resources>
