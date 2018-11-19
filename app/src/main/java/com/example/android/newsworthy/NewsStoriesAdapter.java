@@ -9,10 +9,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class NewsStoriesAdapter extends RecyclerView.Adapter<NewsStoriesAdapter.NewsStoriesAdapterViewHolder> {
 
-    private ArrayList<NewsStory> mNewsStories;
+    private List<NewsStory> mNewsStories;
 
     private final NewsStoriesClickHandler mNewsStoriesClickHandler;
 
@@ -69,7 +70,7 @@ public class NewsStoriesAdapter extends RecyclerView.Adapter<NewsStoriesAdapter.
 
     @Override
     public int getItemCount() {
-        if (mNewsStories.isEmpty()) return 0;
+        if (mNewsStories == null) return 0;
         return mNewsStories.size();
     }
 
@@ -84,7 +85,7 @@ public class NewsStoriesAdapter extends RecyclerView.Adapter<NewsStoriesAdapter.
      * @param newsStories the new set of NewsStories to be displayed
      */
 
-    public void setNewsStories(ArrayList<NewsStory> newsStories) {
+    public void setNewsStories(List<NewsStory> newsStories) {
         mNewsStories = newsStories;
         notifyDataSetChanged();
     }

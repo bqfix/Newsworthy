@@ -35,7 +35,6 @@ public final class NetworkUtils {
      * @param stringUrl the url to be input
      * @return The URL to query
      */
-    //TODO actually build a URL as opposed to using a preformed input string
     public static URL buildURL(String stringUrl) {
         URL url = null;
         try {

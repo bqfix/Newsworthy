@@ -28,22 +28,24 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements NewsStoriesAdapter.NewsStoriesClickHandler, LoaderManager.LoaderCallbacks {
+public class MainActivity extends AppCompatActivity implements NewsStoriesAdapter.NewsStoriesClickHandler, LoaderManager.LoaderCallbacks<List<NewsStory>> {
 
     //Temporary test variables
     Toast mTestToast = null;
     private static final String testUrlString = "https://content.guardianapis.com/search?q=debate&tag=politics/politics&from-date=2014-01-01&api-key=test";
 
     //View member variables
-    private LinearLayout mSearchLayout;
-    private EditText mSearchText;
-    private Button mExecuteSearch;
-    private RecyclerView mResultsRecycler;
-    private ProgressBar mProgressIndicator;
-    private TextView mErrorText;
-    private NewsStoriesAdapter mNewsStoriesAdapter;
+    private static LinearLayout mSearchLayout;
+    private static EditText mSearchText;
+    private static Button mExecuteSearch;
+    private static RecyclerView mResultsRecycler;
+    private static ProgressBar mProgressIndicator;
+    private static TextView mErrorText;
+    private static NewsStoriesAdapter mNewsStoriesAdapter;
 
     private ArrayList<NewsStory> mTestArray;
+
+    private final int LOADER_ID = 27;
 
 
     @Override
@@ -58,6 +60,7 @@ public class MainActivity extends AppCompatActivity implements NewsStoriesAdapte
         mResultsRecycler = (RecyclerView) findViewById(R.id.results_recycler_view);
         mProgressIndicator = (ProgressBar) findViewById(R.id.progress_indicator);
         mErrorText = (TextView) findViewById(R.id.error_text);
+
 
 
 //        mTestArray = new ArrayList<>();
@@ -87,11 +90,7 @@ public class MainActivity extends AppCompatActivity implements NewsStoriesAdapte
 
         mResultsRecycler.setAdapter(mNewsStoriesAdapter);
 
-        //TODO Add actual HTTP request here
-
-
-
-
+        getSupportLoaderManager().initLoader(LOADER_ID,null,this);
 
     }
 
@@ -131,19 +130,19 @@ public class MainActivity extends AppCompatActivity implements NewsStoriesAdapte
     }
 
     //Helper methods for showing results recycler view, progress bar, and error text
-    void showResults() {
+    static void showResults() {
         mErrorText.setVisibility(View.INVISIBLE);
         mProgressIndicator.setVisibility(View.INVISIBLE);
         mResultsRecycler.setVisibility(View.VISIBLE);
     }
 
-    void showProgress() {
+    static void showProgress() {
         mErrorText.setVisibility(View.INVISIBLE);
         mResultsRecycler.setVisibility(View.INVISIBLE);
         mProgressIndicator.setVisibility(View.VISIBLE);
     }
 
-    void showErrorText() {
+    static void showErrorText() {
         mProgressIndicator.setVisibility(View.INVISIBLE);
         mResultsRecycler.setVisibility(View.INVISIBLE);
         mErrorText.setVisibility(View.VISIBLE);
@@ -171,7 +170,7 @@ public class MainActivity extends AppCompatActivity implements NewsStoriesAdapte
     }
 
     //Inner Class for Loader
-    public class NewsStoriesLoader extends AsyncTaskLoader<List<NewsStory>> {
+    public static class NewsStoriesLoader extends AsyncTaskLoader<List<NewsStory>> {
 
         String mUrlString;
 
@@ -201,23 +200,36 @@ public class MainActivity extends AppCompatActivity implements NewsStoriesAdapte
 
         @Override
         public void deliverResult(@Nullable List<NewsStory> data) {
+
             super.deliverResult(data);
         }
     }
 
+    //Overrides of LoaderCallback methods
     @NonNull
     @Override
     public Loader onCreateLoader(int i, @Nullable Bundle bundle) {
-        return null;
+        //TODO implement Uri building into string from Preferences
+
+        return new NewsStoriesLoader(this, testUrlString);
     }
 
     @Override
-    public void onLoadFinished(@NonNull Loader loader, Object o) {
+    public void onLoadFinished(@NonNull Loader<List<NewsStory>> loader, List<NewsStory> newsStories) {
+        //Set earthquakes to RecyclerView
+        mNewsStoriesAdapter.setNewsStories(newsStories);
 
+        //Show Error or Results
+        if (newsStories != null && !newsStories.isEmpty()) {
+            showResults();
+        } else {
+            showErrorText();
+        }
     }
 
     @Override
     public void onLoaderReset(@NonNull Loader loader) {
 
     }
+
 }
