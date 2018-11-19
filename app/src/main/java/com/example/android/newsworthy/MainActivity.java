@@ -1,5 +1,6 @@
 package com.example.android.newsworthy;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -61,8 +63,13 @@ public class MainActivity extends AppCompatActivity {
         //Compare clicked item to the ID for existing buttons and execute custom logic for each and return true(action handled)
         switch (item.getItemId()) {
             case (R.id.action_search):
-                //Search EditText and button should be invisible until this button is clicked
-                mSearchLayout.setVisibility(View.VISIBLE);
+                //Search EditText and button toggle
+                if (mSearchLayout.getVisibility() == View.VISIBLE) {
+                    mSearchLayout.setVisibility(View.INVISIBLE);
+                    hideKeyboard();
+                } else {
+                    mSearchLayout.setVisibility(View.VISIBLE);
+                }
                 return true;
             case (R.id.action_preferences):
                 Intent prefIntent = new Intent(MainActivity.this, PreferencesActivity.class);
@@ -92,5 +99,15 @@ public class MainActivity extends AppCompatActivity {
         mProgressIndicator.setVisibility(View.INVISIBLE);
         mResultsRecycler.setVisibility(View.INVISIBLE);
         mErrorText.setVisibility(View.VISIBLE);
+    }
+
+    //Helper method to hide soft keyboard
+    private void hideKeyboard() {
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+
     }
 }
