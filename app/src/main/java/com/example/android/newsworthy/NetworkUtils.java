@@ -53,7 +53,7 @@ public final class NetworkUtils {
      * @param url the url to be used (likely generated from buildURL method)
      * @return a string with the full JSON response to be parsed by extractStories method
      */
-    private static String makeHttpRequest(URL url) {
+    public static String makeHttpRequest(URL url) {
         String jsonResponse = "";
         if (url == null) {
             return jsonResponse;
@@ -120,7 +120,7 @@ public final class NetworkUtils {
     /**
      * Method to parse the given JSON and return a list of NewsStories to be displayed
      * @param stringJSON A string containing all the JSON (generated from makeHttpRequest method)
-     *
+     * @return A list of all the news stories pulled from the JSON
      */
     public static ArrayList<NewsStory> extractStories(String stringJSON) {
         ArrayList<NewsStory> newsStories = new ArrayList<>();

@@ -3,6 +3,11 @@ package com.example.android.newsworthy;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.AsyncTaskLoader;
+import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -19,9 +24,11 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements NewsStoriesAdapter.NewsStoriesClickHandler {
+public class MainActivity extends AppCompatActivity implements NewsStoriesAdapter.NewsStoriesClickHandler, LoaderManager.LoaderCallbacks {
 
     //Temporary test variables
     Toast mTestToast = null;
@@ -53,24 +60,24 @@ public class MainActivity extends AppCompatActivity implements NewsStoriesAdapte
         mErrorText = (TextView) findViewById(R.id.error_text);
 
 
-        mTestArray = new ArrayList<>();
-        mTestArray.add(new NewsStory("Female peers condemn 'misogynistic' attitudes in Lord Lester debate", "2018-11-16T18:50:43Z", "https://www.theguardian.com/politics/2018/nov/16/female-peers-condemn-misogynistic-attitudes-in-lord-lester-debate"));
-        mTestArray.add(new NewsStory("Female peers condemn 'misogynistic' attitudes in Lord Lester debate", "2018-11-16T18:50:43Z", "https://www.theguardian.com/politics/2018/nov/16/female-peers-condemn-misogynistic-attitudes-in-lord-lester-debate"));
-        mTestArray.add(new NewsStory("Female peers condemn 'misogynistic' attitudes in Lord Lester debate", "2018-11-16T18:50:43Z", "https://www.theguardian.com/politics/2018/nov/16/female-peers-condemn-misogynistic-attitudes-in-lord-lester-debate"));
-        mTestArray.add(new NewsStory("Female peers condemn 'misogynistic' attitudes in Lord Lester debate", "2018-11-16T18:50:43Z", "https://www.theguardian.com/politics/2018/nov/16/female-peers-condemn-misogynistic-attitudes-in-lord-lester-debate"));
-        mTestArray.add(new NewsStory("Female peers condemn 'misogynistic' attitudes in Lord Lester debate", "2018-11-16T18:50:43Z", "https://www.theguardian.com/politics/2018/nov/16/female-peers-condemn-misogynistic-attitudes-in-lord-lester-debate"));
-        mTestArray.add(new NewsStory("Female peers condemn 'misogynistic' attitudes in Lord Lester debate", "2018-11-16T18:50:43Z", "https://www.theguardian.com/politics/2018/nov/16/female-peers-condemn-misogynistic-attitudes-in-lord-lester-debate"));
-        mTestArray.add(new NewsStory("Female peers condemn 'misogynistic' attitudes in Lord Lester debate", "2018-11-16T18:50:43Z", "https://www.theguardian.com/politics/2018/nov/16/female-peers-condemn-misogynistic-attitudes-in-lord-lester-debate"));
-        mTestArray.add(new NewsStory("Female peers condemn 'misogynistic' attitudes in Lord Lester debate", "2018-11-16T18:50:43Z", "https://www.theguardian.com/politics/2018/nov/16/female-peers-condemn-misogynistic-attitudes-in-lord-lester-debate"));
-        mTestArray.add(new NewsStory("Female peers condemn 'misogynistic' attitudes in Lord Lester debate", "2018-11-16T18:50:43Z", "https://www.theguardian.com/politics/2018/nov/16/female-peers-condemn-misogynistic-attitudes-in-lord-lester-debate"));
-        mTestArray.add(new NewsStory("Female peers condemn 'misogynistic' attitudes in Lord Lester debate", "2018-11-16T18:50:43Z", "https://www.theguardian.com/politics/2018/nov/16/female-peers-condemn-misogynistic-attitudes-in-lord-lester-debate"));
-        mTestArray.add(new NewsStory("Female peers condemn 'misogynistic' attitudes in Lord Lester debate", "2018-11-16T18:50:43Z", "https://www.theguardian.com/politics/2018/nov/16/female-peers-condemn-misogynistic-attitudes-in-lord-lester-debate"));
-        mTestArray.add(new NewsStory("Female peers condemn 'misogynistic' attitudes in Lord Lester debate", "2018-11-16T18:50:43Z", "https://www.theguardian.com/politics/2018/nov/16/female-peers-condemn-misogynistic-attitudes-in-lord-lester-debate"));
-        mTestArray.add(new NewsStory("Female peers condemn 'misogynistic' attitudes in Lord Lester debate", "2018-11-16T18:50:43Z", "https://www.theguardian.com/politics/2018/nov/16/female-peers-condemn-misogynistic-attitudes-in-lord-lester-debate"));
-        mTestArray.add(new NewsStory("Female peers condemn 'misogynistic' attitudes in Lord Lester debate", "2018-11-16T18:50:43Z", "https://www.theguardian.com/politics/2018/nov/16/female-peers-condemn-misogynistic-attitudes-in-lord-lester-debate"));
-        mTestArray.add(new NewsStory("Female peers condemn 'misogynistic' attitudes in Lord Lester debate", "2018-11-16T18:50:43Z", "https://www.theguardian.com/politics/2018/nov/16/female-peers-condemn-misogynistic-attitudes-in-lord-lester-debate"));
-        mTestArray.add(new NewsStory("Female peers condemn 'misogynistic' attitudes in Lord Lester debate", "2018-11-16T18:50:43Z", "https://www.theguardian.com/politics/2018/nov/16/female-peers-condemn-misogynistic-attitudes-in-lord-lester-debate"));
-        mTestArray.add(new NewsStory("Female peers condemn 'misogynistic' attitudes in Lord Lester debate", "2018-11-16T18:50:43Z", "https://www.theguardian.com/politics/2018/nov/16/female-peers-condemn-misogynistic-attitudes-in-lord-lester-debate"));
+//        mTestArray = new ArrayList<>();
+//        mTestArray.add(new NewsStory("Female peers condemn 'misogynistic' attitudes in Lord Lester debate", "2018-11-16T18:50:43Z", "https://www.theguardian.com/politics/2018/nov/16/female-peers-condemn-misogynistic-attitudes-in-lord-lester-debate"));
+//        mTestArray.add(new NewsStory("Female peers condemn 'misogynistic' attitudes in Lord Lester debate", "2018-11-16T18:50:43Z", "https://www.theguardian.com/politics/2018/nov/16/female-peers-condemn-misogynistic-attitudes-in-lord-lester-debate"));
+//        mTestArray.add(new NewsStory("Female peers condemn 'misogynistic' attitudes in Lord Lester debate", "2018-11-16T18:50:43Z", "https://www.theguardian.com/politics/2018/nov/16/female-peers-condemn-misogynistic-attitudes-in-lord-lester-debate"));
+//        mTestArray.add(new NewsStory("Female peers condemn 'misogynistic' attitudes in Lord Lester debate", "2018-11-16T18:50:43Z", "https://www.theguardian.com/politics/2018/nov/16/female-peers-condemn-misogynistic-attitudes-in-lord-lester-debate"));
+//        mTestArray.add(new NewsStory("Female peers condemn 'misogynistic' attitudes in Lord Lester debate", "2018-11-16T18:50:43Z", "https://www.theguardian.com/politics/2018/nov/16/female-peers-condemn-misogynistic-attitudes-in-lord-lester-debate"));
+//        mTestArray.add(new NewsStory("Female peers condemn 'misogynistic' attitudes in Lord Lester debate", "2018-11-16T18:50:43Z", "https://www.theguardian.com/politics/2018/nov/16/female-peers-condemn-misogynistic-attitudes-in-lord-lester-debate"));
+//        mTestArray.add(new NewsStory("Female peers condemn 'misogynistic' attitudes in Lord Lester debate", "2018-11-16T18:50:43Z", "https://www.theguardian.com/politics/2018/nov/16/female-peers-condemn-misogynistic-attitudes-in-lord-lester-debate"));
+//        mTestArray.add(new NewsStory("Female peers condemn 'misogynistic' attitudes in Lord Lester debate", "2018-11-16T18:50:43Z", "https://www.theguardian.com/politics/2018/nov/16/female-peers-condemn-misogynistic-attitudes-in-lord-lester-debate"));
+//        mTestArray.add(new NewsStory("Female peers condemn 'misogynistic' attitudes in Lord Lester debate", "2018-11-16T18:50:43Z", "https://www.theguardian.com/politics/2018/nov/16/female-peers-condemn-misogynistic-attitudes-in-lord-lester-debate"));
+//        mTestArray.add(new NewsStory("Female peers condemn 'misogynistic' attitudes in Lord Lester debate", "2018-11-16T18:50:43Z", "https://www.theguardian.com/politics/2018/nov/16/female-peers-condemn-misogynistic-attitudes-in-lord-lester-debate"));
+//        mTestArray.add(new NewsStory("Female peers condemn 'misogynistic' attitudes in Lord Lester debate", "2018-11-16T18:50:43Z", "https://www.theguardian.com/politics/2018/nov/16/female-peers-condemn-misogynistic-attitudes-in-lord-lester-debate"));
+//        mTestArray.add(new NewsStory("Female peers condemn 'misogynistic' attitudes in Lord Lester debate", "2018-11-16T18:50:43Z", "https://www.theguardian.com/politics/2018/nov/16/female-peers-condemn-misogynistic-attitudes-in-lord-lester-debate"));
+//        mTestArray.add(new NewsStory("Female peers condemn 'misogynistic' attitudes in Lord Lester debate", "2018-11-16T18:50:43Z", "https://www.theguardian.com/politics/2018/nov/16/female-peers-condemn-misogynistic-attitudes-in-lord-lester-debate"));
+//        mTestArray.add(new NewsStory("Female peers condemn 'misogynistic' attitudes in Lord Lester debate", "2018-11-16T18:50:43Z", "https://www.theguardian.com/politics/2018/nov/16/female-peers-condemn-misogynistic-attitudes-in-lord-lester-debate"));
+//        mTestArray.add(new NewsStory("Female peers condemn 'misogynistic' attitudes in Lord Lester debate", "2018-11-16T18:50:43Z", "https://www.theguardian.com/politics/2018/nov/16/female-peers-condemn-misogynistic-attitudes-in-lord-lester-debate"));
+//        mTestArray.add(new NewsStory("Female peers condemn 'misogynistic' attitudes in Lord Lester debate", "2018-11-16T18:50:43Z", "https://www.theguardian.com/politics/2018/nov/16/female-peers-condemn-misogynistic-attitudes-in-lord-lester-debate"));
+//        mTestArray.add(new NewsStory("Female peers condemn 'misogynistic' attitudes in Lord Lester debate", "2018-11-16T18:50:43Z", "https://www.theguardian.com/politics/2018/nov/16/female-peers-condemn-misogynistic-attitudes-in-lord-lester-debate"));
 
         //Logic to Setup RecyclerView
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
@@ -80,7 +87,10 @@ public class MainActivity extends AppCompatActivity implements NewsStoriesAdapte
 
         mResultsRecycler.setAdapter(mNewsStoriesAdapter);
 
-        mNewsStoriesAdapter.setNewsStories(mTestArray);
+        //TODO Add actual HTTP request here
+
+
+
 
 
     }
@@ -158,5 +168,56 @@ public class MainActivity extends AppCompatActivity implements NewsStoriesAdapte
         if (uriIntent.resolveActivity(getPackageManager()) != null) {
             startActivity(uriIntent);
         }
+    }
+
+    //Inner Class for Loader
+    public class NewsStoriesLoader extends AsyncTaskLoader<List<NewsStory>> {
+
+        String mUrlString;
+
+        public NewsStoriesLoader(@NonNull Context context, String urlString) {
+            super(context);
+            this.mUrlString = urlString;
+        }
+
+        @Override
+        protected void onStartLoading() {
+            showProgress();
+            forceLoad();
+        }
+
+        @Nullable
+        @Override
+        public List<NewsStory> loadInBackground() {
+            if (mUrlString.length() < 1 || mUrlString == null) {
+                return null;
+            }
+            URL url = NetworkUtils.buildURL(mUrlString);
+            String jsonResponse = NetworkUtils.makeHttpRequest(url);
+            List<NewsStory> newsStories = NetworkUtils.extractStories(jsonResponse);
+
+            return newsStories;
+        }
+
+        @Override
+        public void deliverResult(@Nullable List<NewsStory> data) {
+            super.deliverResult(data);
+        }
+    }
+
+    @NonNull
+    @Override
+    public Loader onCreateLoader(int i, @Nullable Bundle bundle) {
+        return null;
+    }
+
+    @Override
+    public void onLoadFinished(@NonNull Loader loader, Object o) {
+
+    }
+
+    @Override
+    public void onLoaderReset(@NonNull Loader loader) {
+
     }
 }
