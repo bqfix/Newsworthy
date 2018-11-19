@@ -55,7 +55,8 @@ public class NewsStoriesAdapter extends RecyclerView.Adapter<NewsStoriesAdapter.
         LayoutInflater inflater = LayoutInflater.from(context);
 
         View view = inflater.inflate(layoutIdForListItem, viewGroup, false);
-        return null;
+
+        return new NewsStoriesAdapterViewHolder(view);
     }
 
     @Override
