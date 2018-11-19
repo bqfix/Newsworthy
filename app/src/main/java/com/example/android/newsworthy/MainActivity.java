@@ -23,19 +23,20 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements NewsStoriesAdapter.NewsStoriesClickHandler {
 
-    //Temporary toast for testing clicks
+    //Temporary test variables
     Toast mTestToast = null;
+    private static final String testUrlString = "https://content.guardianapis.com/search?q=debate&tag=politics/politics&from-date=2014-01-01&api-key=test";
 
     //View member variables
-    LinearLayout mSearchLayout;
-    EditText mSearchText;
-    Button mExecuteSearch;
-    RecyclerView mResultsRecycler;
-    ProgressBar mProgressIndicator;
-    TextView mErrorText;
-    NewsStoriesAdapter mNewsStoriesAdapter;
+    private LinearLayout mSearchLayout;
+    private EditText mSearchText;
+    private Button mExecuteSearch;
+    private RecyclerView mResultsRecycler;
+    private ProgressBar mProgressIndicator;
+    private TextView mErrorText;
+    private NewsStoriesAdapter mNewsStoriesAdapter;
 
-    ArrayList<NewsStory> mTestArray;
+    private ArrayList<NewsStory> mTestArray;
 
 
     @Override
