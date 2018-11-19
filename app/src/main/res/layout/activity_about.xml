@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".AboutActivity"
     android:gravity="center"
-    android:text="@string/about"
+    android:text="@string/about_details"
     android:textColor="@android:color/black"
     android:layout_margin="16dp"
     >
