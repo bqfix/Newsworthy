@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,12 +30,14 @@ public class NewsStoriesAdapter extends RecyclerView.Adapter<NewsStoriesAdapter.
         //Views in a News List Item
         TextView mTitleView;
         TextView mDateView;
+        TextView mSectionView;
 
         public NewsStoriesAdapterViewHolder(@NonNull View itemView) {
             super(itemView);
 
             mTitleView = (TextView) itemView.findViewById(R.id.title_text_view);
             mDateView = (TextView) itemView.findViewById(R.id.date_text_view);
+            mSectionView = (TextView) itemView.findViewById(R.id.section_text_view);
 
             itemView.setOnClickListener(this);
         }
@@ -66,6 +70,7 @@ public class NewsStoriesAdapter extends RecyclerView.Adapter<NewsStoriesAdapter.
 
         newsStoriesAdapterViewHolder.mTitleView.setText(newsStory.getTitle());
         newsStoriesAdapterViewHolder.mDateView.setText(newsStory.getFormattedDate());
+        newsStoriesAdapterViewHolder.mSectionView.setText(newsStory.getSection());
     }
 
     @Override

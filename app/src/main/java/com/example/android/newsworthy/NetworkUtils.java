@@ -139,9 +139,10 @@ public final class NetworkUtils {
                 String title = currentNewsStory.getString("webTitle");
                 String date = currentNewsStory.getString("webPublicationDate");
                 String url = currentNewsStory.getString("webUrl");
+                String section = currentNewsStory.getString("sectionName");
 
                 //Add a NewsStory using the above parameters
-                newsStories.add(new NewsStory(title,date,url));
+                newsStories.add(new NewsStory(title,date,url,section));
             }
 
         } catch (JSONException e) {

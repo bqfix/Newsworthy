@@ -13,11 +13,13 @@ public class NewsStory {
     String mDate;
     String mFormattedDate;
     String mUrlString;
+    String mSection;
 
-    public NewsStory(String title, String date, String urlString) {
+    public NewsStory(String title, String date, String urlString,String section) {
         this.mTitle = title;
         this.mDate = date;
         this.mUrlString = urlString;
+        this.mSection = section;
 
         //Automatically format date
         try {
@@ -42,5 +44,9 @@ public class NewsStory {
 
     public String getUrlString() {
         return mUrlString;
+    }
+
+    public String getSection() {
+        return mSection;
     }
 }
