@@ -205,7 +205,11 @@ public class MainActivity extends AppCompatActivity implements NewsStoriesAdapte
         if (query != null && query != "") {
             uriBuilder.appendQueryParameter("q", query);
         }
+        //Necessary param to access the api
         uriBuilder.appendQueryParameter("api-key", "test");
+
+        //Necessary param to also get the contributor tag, which holds the author data (for later parsing)
+        uriBuilder.appendQueryParameter("show-tags", "contributor");
 
         Uri builtUri = uriBuilder.build();
 

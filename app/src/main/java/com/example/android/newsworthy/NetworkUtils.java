@@ -141,8 +141,19 @@ public final class NetworkUtils {
                 String url = currentNewsStory.getString("webUrl");
                 String section = currentNewsStory.getString("sectionName");
 
+                //Author is hidden in the contributor tag, which is the only requested tag from the query (hence index 0).  This tag doesn't always exist, so first initialize the string to read that there is no author, and then replace if one is found.
+                String author = "Anonymous";
+                JSONArray tags = currentNewsStory.getJSONArray("tags");
+                if (tags.length() != 0) {
+                    author = tags.getJSONObject(0)
+                            .getString("webTitle");
+                }
+                //Lastly, append "by " to indicate the author
+                String byAuthor = "by " + author;
+
+
                 //Add a NewsStory using the above parameters
-                newsStories.add(new NewsStory(title,date,url,section));
+                newsStories.add(new NewsStory(title,date,url,section, byAuthor));
             }
 
         } catch (JSONException e) {

@@ -14,12 +14,14 @@ public class NewsStory {
     String mFormattedDate;
     String mUrlString;
     String mSection;
+    String mAuthor;
 
-    public NewsStory(String title, String date, String urlString,String section) {
+    public NewsStory(String title, String date, String urlString, String section, String author) {
         this.mTitle = title;
         this.mDate = date;
         this.mUrlString = urlString;
         this.mSection = section;
+        this.mAuthor = author;
 
         //Automatically format date
         try {
@@ -48,5 +50,9 @@ public class NewsStory {
 
     public String getSection() {
         return mSection;
+    }
+
+    public String getAuthor() {
+        return mAuthor;
     }
 }

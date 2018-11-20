@@ -28,6 +28,7 @@ public class NewsStoriesAdapter extends RecyclerView.Adapter<NewsStoriesAdapter.
         TextView mTitleView;
         TextView mDateView;
         TextView mSectionView;
+        TextView mAuthorView;
 
         public NewsStoriesAdapterViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -35,6 +36,7 @@ public class NewsStoriesAdapter extends RecyclerView.Adapter<NewsStoriesAdapter.
             mTitleView = (TextView) itemView.findViewById(R.id.title_text_view);
             mDateView = (TextView) itemView.findViewById(R.id.date_text_view);
             mSectionView = (TextView) itemView.findViewById(R.id.section_text_view);
+            mAuthorView = (TextView) itemView.findViewById(R.id.author_text_view);
 
             itemView.setOnClickListener(this);
         }
@@ -68,6 +70,7 @@ public class NewsStoriesAdapter extends RecyclerView.Adapter<NewsStoriesAdapter.
         newsStoriesAdapterViewHolder.mTitleView.setText(newsStory.getTitle());
         newsStoriesAdapterViewHolder.mDateView.setText(newsStory.getFormattedDate());
         newsStoriesAdapterViewHolder.mSectionView.setText(newsStory.getSection());
+        newsStoriesAdapterViewHolder.mAuthorView.setText(newsStory.getAuthor());
     }
 
     @Override

@@ -41,7 +41,8 @@
         <View
             android:layout_width="1dp"
             android:layout_height="wrap_content"
-            android:background="@android:color/darker_gray"/>
+            android:background="@android:color/darker_gray"
+            android:layout_marginBottom="8dp"/>
 
         <TextView
             android:id="@+id/section_text_view"
@@ -49,7 +50,22 @@
             android:layout_height="wrap_content"
             android:gravity="top"
             android:paddingLeft="8dp"
-            tools:text="Politics" />
+            tools:text="Politics"
+            android:paddingRight="8dp"/>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="wrap_content"
+            android:background="@android:color/darker_gray"
+            android:layout_marginBottom="8dp"/>
+
+        <TextView
+            android:id="@+id/author_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="top"
+            android:paddingLeft="8dp"
+            tools:text="Bob Sagett" />
 
     </LinearLayout>
 
