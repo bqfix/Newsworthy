@@ -10,6 +10,9 @@
 
     <!-- Preferences Activity Strings -->
     <string name="about">About</string>
+    <string name="max_results_key" translatable="false">max_results</string>
+    <string name="max_results_default" translatable="false">10</string>
+    <string name="max_results_label">Maximum Results</string>
 
 
     <!-- About Activity Strings -->

@@ -7,8 +7,10 @@
     android:orientation="vertical"
     tools:context=".PreferencesActivity">
 
-    <!--TODO Add layouts for picking date ranges to display-->
-    <!--TODO Add max number of results to display-->
+    <FrameLayout
+        android:id="@+id/pref_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <View
         android:layout_width="match_parent"
