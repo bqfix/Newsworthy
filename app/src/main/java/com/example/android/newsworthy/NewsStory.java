@@ -9,12 +9,12 @@ import java.util.Date;
 public class NewsStory {
     private final String LOG_TAG = getClass().getSimpleName();
 
-    String mTitle;
-    String mDate;
-    String mFormattedDate;
-    String mUrlString;
-    String mSection;
-    String mAuthor;
+    private String mTitle;
+    private String mDate;
+    private String mFormattedDate;
+    private String mUrlString;
+    private String mSection;
+    private String mAuthor;
 
     public NewsStory(String title, String date, String urlString, String section, String author) {
         this.mTitle = title;
