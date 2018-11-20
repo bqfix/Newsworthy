@@ -2,16 +2,14 @@ package com.example.android.newsworthy;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
-import android.preference.PreferenceManager;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -25,17 +23,11 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements NewsStoriesAdapter.NewsStoriesClickHandler, LoaderManager.LoaderCallbacks<List<NewsStory>> {
-
-    //Temporary test variables
-    Toast mTestToast = null;
-    private static final String testUrlString = "https://content.guardianapis.com/search?q=debate&tag=politics/politics&from-date=2014-01-01&api-key=test";
 
     //View member variables
     private static LinearLayout mSearchLayout;
@@ -75,12 +67,12 @@ public class MainActivity extends AppCompatActivity implements NewsStoriesAdapte
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mResultsRecycler.getContext(), layoutManager.getOrientation());
         mResultsRecycler.addItemDecoration(dividerItemDecoration);
 
-        getSupportLoaderManager().initLoader(LOADER_ID,null,this);
+        getSupportLoaderManager().initLoader(LOADER_ID, null, this);
 
         mExecuteSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getSupportLoaderManager().restartLoader(LOADER_ID,null,MainActivity.this);
+                getSupportLoaderManager().restartLoader(LOADER_ID, null, MainActivity.this);
                 hideKeyboard();
                 mSearchLayout.setVisibility(View.GONE);
             }
@@ -157,7 +149,7 @@ public class MainActivity extends AppCompatActivity implements NewsStoriesAdapte
     @Override
     public void onItemClick(NewsStory newsStory) {
         Uri uri = Uri.parse(newsStory.getUrlString());
-        Intent uriIntent = new Intent(Intent.ACTION_VIEW,uri);
+        Intent uriIntent = new Intent(Intent.ACTION_VIEW, uri);
         if (uriIntent.resolveActivity(getPackageManager()) != null) {
             startActivity(uriIntent);
         }
@@ -211,7 +203,7 @@ public class MainActivity extends AppCompatActivity implements NewsStoriesAdapte
         Uri.Builder uriBuilder = baseUri.buildUpon();
 
         if (query != null && query != "") {
-            uriBuilder.appendQueryParameter("q",query);
+            uriBuilder.appendQueryParameter("q", query);
         }
         uriBuilder.appendQueryParameter("api-key", "test");
 
