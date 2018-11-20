@@ -19,13 +19,6 @@ public class PreferencesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_preferences);
 
-        if (savedInstanceState == null) {
-            Fragment preferenceFragment = new NewsPreferences();
-            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.add(R.id.pref_container, preferenceFragment);
-            ft.commit();
-        }
-
         //Set views
         mAboutText = (TextView) findViewById(R.id.about_text_view);
 
@@ -40,11 +33,5 @@ public class PreferencesActivity extends AppCompatActivity {
 
     }
 
-    //Preferences Fragment Class
-    public static class NewsPreferences extends PreferenceFragmentCompat {
-        @Override
-        public void onCreatePreferences(Bundle bundle, String s) {
-            addPreferencesFromResource(R.xml.preferences);
-        }
-    }
+
 }
