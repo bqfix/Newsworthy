@@ -10,7 +10,7 @@ This project was built for the Udacity Android Developement for Beginners nanode
 
 * Queried an online API for news stories.
 * Implemented search functionality to narrow results from the API.
-* Parsed the data to generate a list of stories.
+* Parsed the JSON data to generate a list of stories.
 * Displayed those stories in a simple RecyclerView
 * Utilized implicit intents to open those stories in a browser.
 
