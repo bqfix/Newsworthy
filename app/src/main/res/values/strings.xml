@@ -5,13 +5,9 @@
     <!-- Main Activity Strings -->
     <string name="edit_text_hint">Search terms</string>
     <string name="search">Search</string>
-    <string name="preferences">Preferences</string>
     <string name="error_text">An error occurred.  Please try again.</string>
-
-    <!-- Preferences Activity Strings -->
     <string name="about">About</string>
 
-
     <!-- About Activity Strings -->
-    <string name="about_details">This app was designed to practice JSON parsing and reading from internet sources.\n\nIt utilizes the API provided by The Guardian, accessible at\n\nhttps://open-platform.theguardian.com/documentation/search\n\nAll included stories are copyrighted:\n\n© 2018 Guardian News and Media Limited or its affiliated companies. All rights reserved.\n\nI take no responsibility for their content, I just display it.</string>
+    <string name="about_details">This app was designed to practice JSON parsing and reading from internet sources.\n\nIt utilizes the API provided by The Guardian, accessible at\n\nhttps://open-platform.theguardian.com/documentation/search\n\nAll included stories are copyrighted:\n\n© 2018 Guardian News and Media Limited or its affiliated companies. All rights reserved.</string>
 </resources>

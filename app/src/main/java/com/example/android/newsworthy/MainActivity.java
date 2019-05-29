@@ -103,10 +103,9 @@ public class MainActivity extends AppCompatActivity implements NewsStoriesAdapte
                 }
                 return true;
             case (R.id.action_preferences):
-                Intent prefIntent = new Intent(MainActivity.this, PreferencesActivity.class);
+                Intent prefIntent = new Intent(MainActivity.this, AboutActivity.class);
                 startActivity(prefIntent);
                 return true;
-
         }
 
         //If no match, let the system handle the click with default behavior
