@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.LoaderManager;
-import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
@@ -24,19 +23,18 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import java.net.URL;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements NewsStoriesAdapter.NewsStoriesClickHandler, LoaderManager.LoaderCallbacks<List<NewsStory>> {
+public class MainActivity extends AppCompatActivity implements NewsStoriesAdapter.NewsStoriesClickHandler, LoaderManager.LoaderCallbacks<List<NewsStory>>, NewsStoriesLoader.OnStartLoadingCallback {
 
     //View member variables
-    private static LinearLayout mSearchLayout;
-    private static EditText mSearchText;
-    private static Button mExecuteSearch;
-    private static RecyclerView mResultsRecycler;
-    private static ProgressBar mProgressIndicator;
-    private static TextView mErrorText;
-    private static NewsStoriesAdapter mNewsStoriesAdapter;
+    private LinearLayout mSearchLayout;
+    private EditText mSearchText;
+    private Button mExecuteSearch;
+    private RecyclerView mResultsRecycler;
+    private ProgressBar mProgressIndicator;
+    private TextView mErrorText;
+    private NewsStoriesAdapter mNewsStoriesAdapter;
 
     private final int LOADER_ID = 27;
 
@@ -116,22 +114,28 @@ public class MainActivity extends AppCompatActivity implements NewsStoriesAdapte
     }
 
     //Helper methods for showing results recycler view, progress bar, and error text
-    static void showResults() {
+     void showResults() {
         mErrorText.setVisibility(View.INVISIBLE);
         mProgressIndicator.setVisibility(View.INVISIBLE);
         mResultsRecycler.setVisibility(View.VISIBLE);
     }
 
-    static void showProgress() {
+     void showProgress() {
         mErrorText.setVisibility(View.INVISIBLE);
         mResultsRecycler.setVisibility(View.INVISIBLE);
         mProgressIndicator.setVisibility(View.VISIBLE);
     }
 
-    static void showErrorText() {
+    void showErrorText() {
         mProgressIndicator.setVisibility(View.INVISIBLE);
         mResultsRecycler.setVisibility(View.INVISIBLE);
         mErrorText.setVisibility(View.VISIBLE);
+    }
+
+    //OnStartLoadingCallback override
+    @Override
+    public void onStartLoading() {
+        showProgress();
     }
 
     //Helper method to hide soft keyboard
@@ -152,42 +156,6 @@ public class MainActivity extends AppCompatActivity implements NewsStoriesAdapte
         Intent uriIntent = new Intent(Intent.ACTION_VIEW, uri);
         if (uriIntent.resolveActivity(getPackageManager()) != null) {
             startActivity(uriIntent);
-        }
-    }
-
-    //Inner Class for Loader
-    public static class NewsStoriesLoader extends AsyncTaskLoader<List<NewsStory>> {
-
-        String mUrlString;
-
-        public NewsStoriesLoader(@NonNull Context context, String urlString) {
-            super(context);
-            this.mUrlString = urlString;
-        }
-
-        @Override
-        protected void onStartLoading() {
-            showProgress();
-            forceLoad();
-        }
-
-        @Nullable
-        @Override
-        public List<NewsStory> loadInBackground() {
-            if (mUrlString.length() < 1 || mUrlString == null) {
-                return null;
-            }
-            URL url = NetworkUtils.buildURL(mUrlString);
-            String jsonResponse = NetworkUtils.makeHttpRequest(url);
-            List<NewsStory> newsStories = NetworkUtils.extractStories(jsonResponse);
-
-            return newsStories;
-        }
-
-        @Override
-        public void deliverResult(@Nullable List<NewsStory> data) {
-
-            super.deliverResult(data);
         }
     }
 
@@ -214,7 +182,7 @@ public class MainActivity extends AppCompatActivity implements NewsStoriesAdapte
         Uri builtUri = uriBuilder.build();
 
 
-        return new NewsStoriesLoader(this, builtUri.toString());
+        return new NewsStoriesLoader(this, builtUri.toString(), this);
     }
 
     @Override
